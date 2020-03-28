@@ -178,17 +178,22 @@ public class BenchmarkResultEntry implements Comparable<BenchmarkResultEntry> {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "BenchmarkResultEntry [label=" + label + ", mode=" + mode + ", count=" + count + ", min=" + min
-				+ ", score=" + score + ", max=" + max + ", scoreerr=" + scoreerr + ", stdev=" + stdev + ", unit=" + unit
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "BenchmarkResultEntry [label=" + label + ", mode=" + mode + ", count=" + count + ", min=" + min
+//				+ ", score=" + score + ", max=" + max + ", scoreerr=" + scoreerr + ", stdev=" + stdev + ", unit=" + unit
+//				+ "]";
+//	}
 
 	public int compareTo(BenchmarkResultEntry o) {
 		Double otherScore = o.score.doubleValue();
 		Double thisScore = score.doubleValue();
 		return thisScore.compareTo(otherScore);
+	}
+
+	@Override
+	public String toString() {
+		return "BenchmarkResultEntry [label=" + label + ", score=" + score + ", unit=" + unit + "]";
 	}
 
 }

@@ -23,18 +23,13 @@ package org.prolobjectlink.prolog;
 
 import static java.util.logging.Level.SEVERE;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Collection;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import org.openjdk.jmh.annotations.Mode;
@@ -63,7 +58,7 @@ public abstract class AbstractBenchmarkRunner implements BenchmarkRunner {
 
 			out = new File(dist.getCanonicalPath() + File.separator + "out");
 			out.mkdirs();
-			outfile = new File(out.getCanonicalPath() + File.separator + name);
+			outfile = new File(out.getCanonicalPath() + File.separator + name + ".txt");
 
 			if (outfile.createNewFile()) {
 				writer = new PrintWriter(outfile);
@@ -112,76 +107,6 @@ public abstract class AbstractBenchmarkRunner implements BenchmarkRunner {
 			if (writer != null) {
 				writer.close();
 			}
-		}
-
-		Set<BenchmarkResultEntry> set = new TreeSet<BenchmarkResultEntry>();
-
-		if (out != null) {
-			File[] files = out.listFiles();
-			if (files != null) {
-				for (File file : files) {
-
-					FileReader reader = null;
-					BufferedReader buffer = null;
-
-					try {
-						reader = new FileReader(file);
-						buffer = new BufferedReader(reader);
-						String line = buffer.readLine();
-						while (line != null) {
-							StringTokenizer tokenizer = new StringTokenizer(line);
-							String label = tokenizer.nextToken();
-							String mode = tokenizer.nextToken();
-							String count = tokenizer.nextToken();
-							String min = tokenizer.nextToken();
-							String score = tokenizer.nextToken();
-							String max = tokenizer.nextToken();
-							String scoreerr = tokenizer.nextToken();
-							String stdev = tokenizer.nextToken();
-							String unit = tokenizer.nextToken();
-
-							BenchmarkResultEntry e = new BenchmarkResultEntry();
-							e.setLabel(label);
-							e.setMode(mode);
-							e.setCount(Double.parseDouble(count));
-							e.setMin(Double.parseDouble(min));
-							e.setScore(Double.parseDouble(score));
-							e.setMax(Double.parseDouble(max));
-							e.setScoreerr(Double.parseDouble(scoreerr));
-							e.setStdev(Double.parseDouble(stdev));
-							e.setUnit(unit);
-
-							set.add(e);
-
-							line = buffer.readLine();
-						}
-					} catch (FileNotFoundException e) {
-						Logger.getLogger(getClass().getName()).log(SEVERE, null, e);
-					} catch (IOException e) {
-						Logger.getLogger(getClass().getName()).log(SEVERE, null, e);
-					} finally {
-						if (reader != null) {
-							try {
-								reader.close();
-							} catch (IOException e) {
-								Logger.getLogger(getClass().getName()).log(SEVERE, null, e);
-							}
-						}
-						if (buffer != null) {
-							try {
-								buffer.close();
-							} catch (IOException e) {
-								Logger.getLogger(getClass().getName()).log(SEVERE, null, e);
-							}
-						}
-					}
-
-				}
-			}
-		}
-
-		for (BenchmarkResultEntry benchmarkResultEntry : set) {
-			System.out.println(benchmarkResultEntry);
 		}
 
 	}

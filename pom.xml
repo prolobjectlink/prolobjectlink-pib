@@ -44,7 +44,7 @@
 		<developerConnection>scm:git:https://github.com/prolobjectlink/${project.name}.git</developerConnection>
 		<connection>scm:git:https://github.com/prolobjectlink/${project.name}.git</connection>
 		<url>https://prolobjectlink.github.io/${project.name}</url>
-
+		<tag>v@{project.version}</tag>
 	</scm>
 
 	<ciManagement>
@@ -56,6 +56,23 @@
 		<system>GitHub</system>
 		<url>https://github.com/prolobjectlink/${project.name}/issues</url>
 	</issueManagement>
+	
+	<mailingLists>
+		<mailingList>
+			<name>Developer List</name>
+			<subscribe>prolobjectlink+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>prolobjectlink+unsubscribe@googlegroups.com</unsubscribe>
+			<post>prolobjectlink@googlegroups.com</post>
+			<archive>http://groups.google.com/group/prolobjectlink</archive>
+		</mailingList>
+		<mailingList>
+			<name>Users List</name>
+			<subscribe>prolobjectlink+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>prolobjectlink+unsubscribe@googlegroups.com</unsubscribe>
+			<post>prolobjectlink@googlegroups.com</post>
+			<archive>http://groups.google.com/group/prolobjectlink</archive>
+		</mailingList>
+	</mailingLists>
 
 	<distributionManagement>
 		<snapshotRepository>
@@ -265,7 +282,7 @@
 				</configuration>
 			</plugin>
 			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> 
-				<version>2.3.1</version> <configuration> <threshold>Normal</threshold> <effort>Default</effort> 
+				<version>3.0.3</version> <configuration> <threshold>Normal</threshold> <effort>Default</effort> 
 				<excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile> 
 				</configuration> </plugin> -->
 			<plugin>
@@ -374,7 +391,7 @@
 				</configuration>
 			</plugin>
 			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> 
-				<version>2.3.1</version> </plugin> -->
+				<version>3.0.3</version> </plugin> -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>

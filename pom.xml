@@ -6,6 +6,7 @@
 	<groupId>io.github.prolobjectlink</groupId>
 	<artifactId>prolobjectlink-pib</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
 	<name>prolobjectlink-pib</name>
 	<description>prolobjectlink-pib</description>
 
@@ -57,7 +58,7 @@
 		<system>GitHub</system>
 		<url>https://github.com/prolobjectlink/${project.name}/issues</url>
 	</issueManagement>
-	
+
 	<mailingLists>
 		<mailingList>
 			<name>Developer List</name>
@@ -296,10 +297,16 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> 
-				<version>3.0.3</version> <configuration> <threshold>Normal</threshold> <effort>Default</effort> 
-				<excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile> 
-				</configuration> </plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.3</version>
+				<configuration>
+					<threshold>Normal</threshold>
+					<effort>Default</effort>
+					<excludeFilterFile>${basedir}/findbugs-exclude-filter.xml</excludeFilterFile>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>taglist-maven-plugin</artifactId>
@@ -353,6 +360,42 @@
 						<phase>verify</phase>
 						<goals>
 							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>2.3.7</version>
+				<configuration>
+					<instructions>
+						<Bundle-Name>Java Prolog Interface</Bundle-Name>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Version>${project.version}</Implementation-Version>
+						<Bundle-DocURL>${project.url}</Bundle-DocURL>
+						<Export-Package>${project.groupId}.prolog</Export-Package>
+						<Import-Package>javax.script;javax.annotation.processing;
+							javax.lang.model; javax.lang.model.element;
+							javax.lang.model.type; javax.lang.model.util; javax.management;
+							javax.management.openmbean; javax.tools; sun.management;
+							sun.management.counter;
+							sun.misc;${project.groupId}.*;provide:=true</Import-Package>
+						<Bundle-SymbolicName>${project.groupId}.prolog.plugin;singleton:=true</Bundle-SymbolicName>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+						<Embed-Directory>target/dependency</Embed-Directory>
+						<Embed-StripGroup>true</Embed-StripGroup>
+						<Embed-Transitive>true</Embed-Transitive>
+					</instructions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>install</phase>
+						<goals>
+							<goal>manifest</goal>
 						</goals>
 					</execution>
 				</executions>

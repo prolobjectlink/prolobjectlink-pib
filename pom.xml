@@ -400,6 +400,20 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<mavenHome>../apache-maven</mavenHome>
+					<goals>deploy -P release</goals>
+					<preparationGoals>clean install site</preparationGoals>
+					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+					<tagNameFormat>v-@{project.version}</tagNameFormat>
+					<useReleaseProfile>false</useReleaseProfile>
+					<remoteTagging>false</remoteTagging>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
